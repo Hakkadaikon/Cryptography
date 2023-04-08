@@ -3,24 +3,24 @@
     /// <summary>
     /// AES暗号化クラス
     /// </summary>
-    public class CypherAES : ICypherAES
+    public class CipherAes : ICipherAes
     {
-        private ICypherAES cypher;
+        private ICipherAes cipher;
 
         /// <summary>
         /// 暗号鍵
         /// </summary>
-        public string Key => this.cypher.Key;
+        public string Key => this.cipher.Key;
 
         /// <summary>
         /// 初期化ベクトル
         /// </summary>
-        public string IV => this.cypher.IV;
+        public string IV => this.cipher.IV;
 
         /// <summary>
         /// AES暗号種別
         /// </summary>
-        public enum eCypyherAESKind
+        public enum CipherAesKind
         {
             /// <summary>
             /// .NET標準ライブラリ使用
@@ -43,17 +43,17 @@
         /// AES暗号化種別
         /// 指定しない場合は.NET標準ライブラリのAESクラスを使用
         /// </param>
-        public CypherAES(
+        public CipherAes(
             in string? key = null,
             in string? iv = null,
-            in eCypyherAESKind kind = eCypyherAESKind.Dotnet
+            in CipherAesKind kind = CipherAesKind.Dotnet
             )
         {
             switch (kind)
             {
-                case eCypyherAESKind.Dotnet:
+                case CipherAesKind.Dotnet:
                 default:
-                    this.cypher = new CypherAESDotnet(key, iv);
+                    this.cipher = new CipherAesDotnet(key, iv);
                     break;
             }
         }
@@ -67,7 +67,7 @@
         /// </returns>
         public string Encrypt(in string plainData)
         {
-            return this.cypher.Encrypt(plainData);
+            return this.cipher.Encrypt(plainData);
         }
 
         /// <summary>
@@ -77,9 +77,9 @@
         /// <returns>
         /// 複合化されたデータ
         /// </returns>
-        public string Decript(in string cypherData)
+        public string Decript(in string cipherData)
         {
-            return this.cypher.Decript(cypherData);
+            return this.cipher.Decript(cipherData);
         }
     }
 }

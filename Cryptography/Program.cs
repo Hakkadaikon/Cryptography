@@ -15,15 +15,15 @@ internal class Program
         string plainText1 = "test";
         string plainText2 = "testaaatest";
 
-        CypherTest(plainText1);
-        CypherTest(plainText2);
+        CipherTest(plainText1);
+        CipherTest(plainText2);
     }
 
     /// <summary>
     /// 暗号化テスト
     /// </summary>
     /// <param name="plainText">暗号化対象文字列</param>
-    private static void CypherTest(in string plainText)
+    private static void CipherTest(in string plainText)
     {
         try
         {
@@ -32,11 +32,11 @@ internal class Program
             Console.WriteLine("plain data  :{0}", plainText);
 
             // 暗号化
-            ICypherAES cypher1 = new CypherAES();
+            ICipherAes cypher1 = new CipherAes();
             var encryptData = cypher1.Encrypt(plainText);
 
             // 複合化
-            ICypherAES cypher2 = new CypherAES(cypher1.Key, cypher1.IV);
+            ICipherAes cypher2 = new CipherAes(cypher1.Key, cypher1.IV);
             var decryptData = cypher2.Decript(encryptData);
 
             Console.WriteLine("Encrypt data:{0}", encryptData);
@@ -45,7 +45,7 @@ internal class Program
             Console.WriteLine("Decrypt data:{0}", decryptData);
             Console.WriteLine("--------------------------------");
         }
-        catch (CypherException ex)
+        catch (CipherException ex)
         {
             Console.WriteLine("Error!");
             Console.WriteLine(ex.ToString());

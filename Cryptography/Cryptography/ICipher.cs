@@ -3,7 +3,7 @@
     /// <summary>
     /// 暗号化インターフェイス
     /// </summary>
-    public interface ICypher
+    public interface ICipher
     {
         /// <summary>
         /// 入力データを暗号化する。
@@ -12,19 +12,19 @@
         /// <returns>
         /// 暗号化されたデータ
         /// </returns>
-        /// <exception cref="CypherException">
+        /// <exception cref="CipherException">
         /// </exception>
         public string Encrypt(in string plainData);
 
         /// <summary>
         /// 入力データを複合化する。
         /// </summary>
-        /// <param name="cypherData">暗号化されたデータ</param>
+        /// <param name="cipherData">暗号化されたデータ</param>
         /// <returns>
         /// 複合化されたデータ
         /// </returns>
-        /// <exception cref="CypherException">
+        /// <exception cref="CipherException">
         /// </exception>
-        public string Decript(in string cypherData);
+        public string Decript(in string cipherData);
     }
 }

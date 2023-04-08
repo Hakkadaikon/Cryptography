@@ -6,7 +6,7 @@ namespace Cryptography
     /// <summary>
     /// AES暗号化(.NET標準ライブラリ使用)クラス
     /// </summary>
-    public class CypherAESDotnet : ICypherAES
+    public class CipherAesDotnet : ICipherAes
     {
         private byte[] _key = new byte[16];
         private byte[] _iv = new byte[16];
@@ -31,7 +31,7 @@ namespace Cryptography
             }
         }
 
-        public CypherAESDotnet(in string? key = null, in string? iv = null)
+        public CipherAesDotnet(in string? key = null, in string? iv = null)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace Cryptography
             }
             catch (Exception ex)
             {
-                throw new CypherException("Failed to AES initialize.", ex);
+                throw new CipherException("Failed to AES initialize.", ex);
             }
         }
 
@@ -65,7 +65,7 @@ namespace Cryptography
         /// AES情報を格納する。
         /// </summary>
         /// <param name="aes">格納先</param>
-        private void SetAESInfo(in Aes aes)
+        private void SetAesInfo(in Aes aes)
         {
             aes.Key = this._key;
             aes.IV = this._iv;
@@ -78,7 +78,7 @@ namespace Cryptography
             try
             {
                 using Aes aes = Aes.Create();
-                SetAESInfo(aes);
+                SetAesInfo(aes);
                 using MemoryStream ms = new MemoryStream();
                 using CryptoStream cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write);
                 cs.Write(System.Text.Encoding.ASCII.GetBytes(plainData), 0, plainData.Length);
@@ -88,29 +88,29 @@ namespace Cryptography
             }
             catch (Exception ex)
             {
-                throw new CypherException("Failed to encript.", ex);
+                throw new CipherException("Failed to encript.", ex);
             }
         }
 
-        public string Decript(in string cypherData)
+        public string Decript(in string cipherData)
         {
             try
             {
                 using Aes aes = Aes.Create();
-                SetAESInfo(aes);
+                SetAesInfo(aes);
 
-                var cypherArray = Convert.FromBase64String(cypherData);
+                var cipherArray = Convert.FromBase64String(cipherData);
 
                 using MemoryStream ms = new MemoryStream();
                 using CryptoStream cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Write);
-                cs.Write(cypherArray, 0, cypherArray.Length);
+                cs.Write(cipherArray, 0, cipherArray.Length);
                 cs.FlushFinalBlock();
 
                 return System.Text.Encoding.ASCII.GetString(ms.ToArray());
             }
             catch (Exception ex)
             {
-                throw new CypherException("Failed to decript.", ex);
+                throw new CipherException("Failed to decript.", ex);
             }
         }
     }

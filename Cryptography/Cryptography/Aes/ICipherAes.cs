@@ -3,7 +3,7 @@
     /// <summary>
     /// AES暗号化インターフェイス
     /// </summary>
-    public interface ICypherAES : ICypher
+    public interface ICipherAes : ICipher
     {
         /// <summary>
         /// 暗号鍵
