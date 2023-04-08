@@ -27,7 +27,7 @@
             /// </summary>
             Dotnet
         }
-        
+
         /// <summary>
         /// コンストラクタ
         /// </summary>
